@@ -11,6 +11,8 @@ const ContactList = () => {
   const visibleList = tasksList.filter(item =>
     item.name.toLowerCase().includes(filterQuery)
   );
+  console.log(visibleList);
+  console.log(filterQuery);
   return (
     <ul>
       {visibleList.length !== 0 ? (
@@ -28,7 +30,7 @@ const ContactList = () => {
           </li>
         ))
       ) : (
-        <h2>It`s empty here 🥶</h2>
+        <h2>It`s empty here ^_^</h2>
       )}
     </ul>
   );

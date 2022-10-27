@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-const filterState = '';
+const filterState = { filter: '' };
 
 export const filterSlice = createSlice({
   name: 'filter',
   initialState: filterState,
   reducers: {
     setFilter(state, action) {
-      return (state = action.payload);
+      state.filter = action.payload;
     },
   },
 });

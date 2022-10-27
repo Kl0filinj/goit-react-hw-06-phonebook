@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { tasksReducer } from './taskSlice';
+import { contactsReducer } from './taskSlice';
 import { filterReducer } from './filterSlice';
 import {
   persistStore,
@@ -20,7 +20,7 @@ import {
 
 export const store = configureStore({
   reducer: {
-    tasks: tasksReducer,
+    contacts: contactsReducer,
     filter: filterReducer,
   },
   middleware: getDefaultMiddleware =>
