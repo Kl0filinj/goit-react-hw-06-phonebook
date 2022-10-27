@@ -1,7 +1,8 @@
 import React from 'react';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
-import PropTypes from 'prop-types';
-
+import { addTask } from 'redux/taskSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { tasksSelector } from 'redux/selectors';
 import * as Yup from 'yup';
 
 const initialValues = {
@@ -19,13 +20,25 @@ const schema = Yup.object().shape({
     .required(),
 });
 
-const ContactForm = ({ onSubmit }) => {
+const ContactForm = () => {
+  const dispatch = useDispatch();
+  const tasks = useSelector(tasksSelector);
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={schema}
       onSubmit={(values, actions) => {
-        onSubmit(values.name, values.number);
+        const { name, number } = values;
+        const isNameInContacts = tasks.find(
+          item => item.name.toLowerCase() === name.toLowerCase()
+        );
+        if (isNameInContacts) {
+          alert('Sorry >±< this contact already in list ⬇️');
+          actions.resetForm();
+          return;
+        }
+        dispatch(addTask({ name, number }));
         actions.resetForm();
       }}
     >
@@ -54,8 +67,8 @@ const ContactForm = ({ onSubmit }) => {
     </Formik>
   );
 };
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+// ContactForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
 
 export default ContactForm;

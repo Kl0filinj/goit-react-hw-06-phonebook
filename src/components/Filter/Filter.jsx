@@ -1,7 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { setFilter } from 'redux/filterSlice';
+import { filterSelector } from 'redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Filter = ({ value, onFilterChange }) => {
+// import PropTypes from 'prop-types';
+
+const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector(filterSelector);
+  const inputHandleChacge = evt => {
+    dispatch(setFilter(evt.target.value));
+  };
   return (
     <>
       <h2>Find contact by name</h2>
@@ -9,16 +18,16 @@ const Filter = ({ value, onFilterChange }) => {
         <input
           type="text"
           name="filter"
-          value={value}
-          onChange={e => onFilterChange(e.target.value)}
+          value={filter}
+          onChange={inputHandleChacge}
         />
       </label>
     </>
   );
 };
-Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
-};
+// Filter.propTypes = {
+//   value: PropTypes.string.isRequired,
+//   onFilterChange: PropTypes.func.isRequired,
+// };
 
 export default Filter;
