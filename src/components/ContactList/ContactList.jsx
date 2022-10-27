@@ -7,7 +7,7 @@ import { deleteTask } from 'redux/taskSlice';
 const ContactList = () => {
   const dispatch = useDispatch();
   const tasksList = useSelector(tasksSelector);
-  const filterQuery = useSelector(filterSelector).toLowerCase();
+  const filterQuery = useSelector(filterSelector);
   const visibleList = tasksList.filter(item =>
     item.name.toLowerCase().includes(filterQuery)
   );

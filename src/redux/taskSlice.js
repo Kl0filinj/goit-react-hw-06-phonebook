@@ -1,4 +1,6 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 const tasksState = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -31,5 +33,11 @@ export const taskSlice = createSlice({
   },
 });
 
+const persistConfig = {
+  key: 'tasks',
+  storage,
+};
+
 export const { addTask, deleteTask } = taskSlice.actions;
-export const tasksReducer = taskSlice.reducer;
+// export const tasksReducer = taskSlice.reducer;
+export const tasksReducer = persistReducer(persistConfig, taskSlice.reducer);
